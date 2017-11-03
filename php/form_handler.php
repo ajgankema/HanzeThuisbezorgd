@@ -49,8 +49,14 @@ function login(){
 function register(){
     include_once("User.class.php");
 
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password_repeat = $_POST['password_repeat'];
+
     $user = new User();
-    if($user->register($_POST)){
+    if($user->register($firstname, $lastname, $email, $password, $password_repeat)){
         echo "Geregistreerd en ingelogd";
     }
 }

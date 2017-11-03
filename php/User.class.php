@@ -24,20 +24,8 @@ class User{
         return false;
     }
 
-    //De gebruiker uitloggen
-    public function logout(){
-        //Gebruiker sessies legen
-        unset($_SESSION['user_id']);
-        unset($_SESSION['firstname']);
-        unset($_SESSION['lastname']);
-        unset($_SESSION['email']);
-        unset($_SESSION['type']);
-
-        $this->loggedIn = false;
-    }
-
     //De registratie van de gebruiker
-    public function register($post){
+    public function register($firstname, $lastname, $email, $password, $password_repeat){
 
         //Include important files
         include_once("config.php");
@@ -47,11 +35,11 @@ class User{
         $db = (new Db())->getConnection();
 
         //Escape alle strings
-        $firstname = $db->real_escape_string($_POST['firstname']);
-        $lastname = $db->real_escape_string($_POST['lastname']);
-        $email = $db->real_escape_string($_POST['email']);
-        $password = $db->real_escape_string($_POST['password']);
-        $password_repeat = $db->real_escape_string($_POST['password_repeat']);
+        $firstname = $db->real_escape_string($firstname);
+        $lastname = $db->real_escape_string($lastname);
+        $email = $db->real_escape_string($email);
+        $password = $db->real_escape_string($password);
+        $password_repeat = $db->real_escape_string($password_repeat);
 
         //Komen de wachtwoorden overeen?
         if($password!=$password_repeat)return false;    //TODO: Een bericht laten weergeven dat de wachtwoorden niet overeenkomen
@@ -133,6 +121,18 @@ class User{
         $_SESSION['email'] = $user['email'];
         $_SESSION['type'] = $user['type'];
         return true;
+    }
+
+    //De gebruiker uitloggen
+    public function logout(){
+        //Gebruiker sessies legen
+        unset($_SESSION['user_id']);
+        unset($_SESSION['firstname']);
+        unset($_SESSION['lastname']);
+        unset($_SESSION['email']);
+        unset($_SESSION['type']);
+
+        $this->loggedIn = false;
     }
 
 }
