@@ -13,6 +13,8 @@ $config = array(
     "DB_PASS"   =>  "",
     "DB_TABLE"  =>  "mydb",
 
-    "Base_URL"  =>  "Thuisbezorgd/"
+    "ENCRYPT_OPTIONS"   =>  ["cost"=>12],
+
+    "Base_URL"  =>  "/Thuisbezorgd"
 
 );

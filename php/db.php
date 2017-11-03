@@ -10,6 +10,7 @@ class Db {
 
     public function __construct(){
         global $config;
+        if(empty($config))include("config.php");//Quick bugfix?
 
         //Connect with the MySQL Database
         $this->connection = new mysqli(
