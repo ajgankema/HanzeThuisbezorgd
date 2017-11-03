@@ -1,0 +1,1 @@
+Thuisbezorgd webwinkel als groepsopdracht voor de Hanze Hogeschool.
