@@ -3,14 +3,32 @@
 class User{
 
     private $loggedIn = false;
+    private $role = null;
+    private $firstname = null;
+    private $lastname = null;
+    private $email = null;
 
+    /**
+     * Constructor
+     */
     public function __construct(){
 
         if(!isset($_SESSION))session_start();
-        if(isset($_SESSION['user_id']))$this->loggedIn=true;   //Gebruiker is al ingelogd als de statement TRUE is
+        if(isset($_SESSION['user_id'])){
+            //Gebruiker is al ingelogd als de statement TRUE is
+            $this->loggedIn=true;
+            $this->role=$_SESSION['role_name'];
+            $this->firstname=$_SESSION['firstname'];
+            $this->lastname=$_SESSION['lastname'];
+            $this->email=$_SESSION['email'];
+        }
 
     }
 
+    /**
+     * Important user functions
+     */
+    //Is de huidige gebruiker ingelogd?
     public function isLoggedIn(){
         return $this->loggedIn;
     }
@@ -18,8 +36,17 @@ class User{
     //Is de huidige gebruiker een administrator?
     public function isAdmin(){
         //Return true als de gebruiker wel een administrator is
-        if(isLoggedIn()){
-            if($_SESSION['type']==1)return true;
+        if($this->isLoggedIn()){
+            if($_SESSION['role_id']==2)return true;
+        }
+        return false;
+    }
+
+    //Is de huidige gebruiker een restaurant beheerder?
+    public function isRestaurantManager(){
+        //Return true als de gebruiker wel een restaurant beheerder is
+        if($this->isLoggedIn()){
+            if($_SESSION['role_id']==3)return true;
         }
         return false;
     }
@@ -42,14 +69,14 @@ class User{
         $password_repeat = $db->real_escape_string($password_repeat);
 
         //Komen de wachtwoorden overeen?
-        if($password!=$password_repeat)return false;    //TODO: Een bericht laten weergeven dat de wachtwoorden niet overeenkomen
+        if($password!=$password_repeat)return 2;    //Een bericht weergeven dat de wachtwoorden niet overeen komen
 
         //Is het e-mail al eerder geregistreerd?
         $sql = "SELECT email
                 FROM users
                 WHERE email = '$email'";
         $result = $db->query($sql);
-        if($result->num_rows)return false;      //TODO: Een bericht laten weergeven dat de email al bestaat
+        if($result->num_rows)return 3;      //Een bericht laten weergeven dat de email al bestaat
 
         //Wachtwoord encryptie
         $hash = password_hash($password, PASSWORD_BCRYPT, $config['ENCRYPT_OPTIONS']);
@@ -72,7 +99,7 @@ class User{
 
         }
 
-        return false;
+        return 4;   //Er ging iets fout
 
     }
 
@@ -90,9 +117,11 @@ class User{
         $password = $db->real_escape_string($password);
 
         //Get appointed user
-        $sql = "SELECT *
-                FROM users
-                WHERE email = '$email'";
+        $sql = "SELECT u.user_id, u.firstname, u.lastname, u.email, u.hash, u.active, u.role_id, r.role_name
+                FROM users as u
+                INNER JOIN roles as r
+                ON r.role_id = u.role_id
+                WHERE u.email = '$email'";
         $results = $db->query($sql);
         $results = $results->fetch_assoc();
 
@@ -109,7 +138,7 @@ class User{
         }
 
         //Inloggen mislukt
-        return false;   //TODO: Een bericht laten weergeven dat het email of wachtwoord niet overeen komt
+        return 2;
 
     }
 
@@ -119,7 +148,8 @@ class User{
         $_SESSION['firstname'] = $user['firstname'];
         $_SESSION['lastname'] = $user['lastname'];
         $_SESSION['email'] = $user['email'];
-        $_SESSION['type'] = $user['type'];
+        $_SESSION['role_id'] = $user['role_id'];
+        $_SESSION['role_name'] = $user['role_name'];
         return true;
     }
 
@@ -130,9 +160,33 @@ class User{
         unset($_SESSION['firstname']);
         unset($_SESSION['lastname']);
         unset($_SESSION['email']);
-        unset($_SESSION['type']);
+        unset($_SESSION['role_id']);
+        unset($_SESSION['role_name']);
 
         $this->loggedIn = false;
+    }
+
+
+    /**
+     * Getters
+     */
+    public function getRole(){
+        return $this->role;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    public function getLastname()
+    {
+        return $this->lastname;
     }
 
 }

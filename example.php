@@ -68,6 +68,7 @@ if(!$user->isLoggedIn()) {
             <tr>
                 <td>
                     <input type="hidden" value="register" name="type">
+                    <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
                 </td>
                 <td>
                     <input type="submit" value="Registreren" name="submit">
@@ -98,6 +99,7 @@ if(!$user->isLoggedIn()) {
             <tr>
                 <td>
                     <input type="hidden" value="login" name="type">
+                    <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
                 </td>
                 <td>
                     <input type="submit" value="Inloggen" name="submit">
