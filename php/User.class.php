@@ -28,8 +28,9 @@ class User{
     }
 
     /**
-     * Important user functions
+     * General
      */
+
     //Is de huidige gebruiker ingelogd?
     public function isLoggedIn(){
         return $this->loggedIn;
@@ -52,6 +53,10 @@ class User{
         }
         return false;
     }
+
+    /**
+     * Login & Registratie
+     */
 
     //De registratie van de gebruiker
     public function register($firstname, $lastname, $email, $password, $password_repeat){
@@ -189,6 +194,7 @@ class User{
     /**
      * Adres functies
      */
+
     public function addAddress($streetname, $housenumber, $postalcode, $city, $standard){
 
         //Making ready a variable
@@ -359,6 +365,7 @@ class User{
     /**
      * Getters
      */
+
     public function getRole(){
         return $this->role;
     }

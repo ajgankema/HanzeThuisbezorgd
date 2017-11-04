@@ -34,7 +34,6 @@ if(!empty($_GET['register'])){
                 if($key==8)$registerErrorMsg.="Wachtwoord te kort";
                 $registerErrorMsg.="<br/>";
             }
-            unset($_SESSION['register_errors']);
             break;
         case "emailexists":
             $registerErrorMsg = "Er is al een account geregistreerd met dit e-mail adres.";

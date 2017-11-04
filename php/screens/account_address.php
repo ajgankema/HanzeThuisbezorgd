@@ -3,11 +3,67 @@
 $popupOpened = 0;
 $addressErrorMsg = null;
 
+if(!empty($_GET['addAddress'])){
+
+    switch($_GET['addAddress']){
+        case "incorrectinput":
+            $popupOpened=1;
+            foreach($_SESSION['addAddress_errors'] as $key=>$error){
+                if($key==2)$addressErrorMsg.="Straatnaam is te kort.";
+                if($key==3)$addressErrorMsg.="Er moet een huisnummer zijn ingevoerd.";
+                if($key==4)$addressErrorMsg.="Postcode klopt niet.";
+                if($key==5)$addressErrorMsg.="Plaatsnaam is te kort";
+                $addressErrorMsg.="<br/>";
+            }
+            break;
+        default:
+            break;
+    }
+
+}
+if(!empty($_GET['editAddress'])){
+
+    switch($_GET['editAddress']){
+        case "unknownerror":
+            $popupOpened=2;
+            $addressErrorMsg = "Er is iets mis gegaan!";
+            break;
+        case "incorrectinput":
+            $popupOpened=2;
+            foreach($_SESSION['addAddress_errors'] as $key=>$error){
+                if($key==2)$addressErrorMsg.="Straatnaam is te kort.";
+                if($key==3)$addressErrorMsg.="Er moet een huisnummer zijn ingevoerd.";
+                if($key==4)$addressErrorMsg.="Postcode klopt niet.";
+                if($key==5)$addressErrorMsg.="Plaatsnaam is te kort";
+                $addressErrorMsg.="<br/>";
+            }
+            break;
+        default:
+            break;
+    }
+
+}
+if(!empty($_GET['removeAddress'])){
+
+    switch($_GET['removeAddress']){
+        case "unknownerror":
+            $popupOpened=2;
+            $addressErrorMsg="Er is iets mis gegaan!";
+            break;
+        default:
+            break;
+    }
+
+}
+
+if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErrorMsg."</p>";
+
+
 ?>
 <script>
     $(function(){
-        if(<?=$popupOpened;?>==1)openLogin();
-        if(<?=$popupOpened;?>==2)openRegister();
+        if(<?=$popupOpened;?>==1)openAddAddress();
+        if(<?=$popupOpened;?>==2)openEditAddress();
     });
 </script>
 <div id="address_popup">

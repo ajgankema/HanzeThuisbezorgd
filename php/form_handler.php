@@ -83,6 +83,7 @@ function register(){
     //What has been returned from the function?
     if($response==1){
         //User has been registered and logged in
+        unset($_SESSION['register_errors']);
     } elseif($response==2) {
         //Wachtwoorden komen niet overeen
         $return_URL.="?register=passwordsdontmatch";
@@ -125,6 +126,7 @@ function addAddress(){
 
     if($response==1){
         //Data is opgeslagen
+        unset($_SESSION['addAddress_errors']);
     } elseif(is_array($response)){
         if(empty($_SESSION))session_start();
         $return_URL.="?addAddress=incorrectinput";
@@ -175,7 +177,7 @@ function editAddress(){
             //Data is opgeslagen
         } elseif(is_array($response)){
             if(empty($_SESSION))session_start();
-            $return_URL.="?addAddress=incorrectinput";
+            $return_URL.="?editAddress=incorrectinput";
             $_SESSION['addAddress_errors']=$response;
         } else {
             $return_URL.="?editAddress=unknownerror";
