@@ -15,11 +15,13 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 include("php/config.php");
 include("php/db.php");
 include("php/User.class.php");
-
-$user = new User();
+include("php/Restaurant.class.php");
 
 //Setup the database connection
 $db = (new Db())->getConnection();
+
+$user = new User();
+$restaurant = new Restaurant();
 
 //Check for $_GET requests
 include("php/form_handler.php");
@@ -34,3 +36,9 @@ if($user->isLoggedIn()){
 } else {
     echo '<a href="javascript:void(0)" onclick="openLogin()">Inloggen</a>';
 }
+
+?>
+<header>
+    <h1><?=$restaurant->?></h1>
+    <p><?=$restaurant->getDescription();?></p>
+</header>
