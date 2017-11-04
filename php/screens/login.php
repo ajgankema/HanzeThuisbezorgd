@@ -1,13 +1,13 @@
 <?php
 
 $loginErrorMsg = null;
-$popupOpened = null;
+$popupOpened = 0;
 if(!empty($_GET['login'])){
     switch($_GET['login']){
         case "wrongcredentials":
             $loginErrorMsg="Je login is incorrect. Controleer je gebruikersnaam (email) en/of wachtwoord en probeer het opnieuw.";
             $loginErrorMsg = "<p class='errormsg'>".$loginErrorMsg."</p>";
-            $popupOpened = "style='display:block;'";
+            $popupOpened = 1;
             break;
         default:
             break;
@@ -15,7 +15,12 @@ if(!empty($_GET['login'])){
 }
 
 ?>
-<div id="login_popup" <?=$popupOpened;?>>
+<script>
+    $(function(){
+        if(<?=$popupOpened;?>)openLogin();
+    });
+</script>
+<div id="login_popup">
     <div class="overlay" id="popup_overlay">
         <div class="popup">
             <div class="title">
