@@ -54,6 +54,9 @@ class User{
     //De registratie van de gebruiker
     public function register($firstname, $lastname, $email, $password, $password_repeat){
 
+        //Variable klaar zetten
+        $error = array();
+
         //Include important files
         include_once("config.php");
         include_once("db.php");
@@ -67,6 +70,20 @@ class User{
         $email = $db->real_escape_string($email);
         $password = $db->real_escape_string($password);
         $password_repeat = $db->real_escape_string($password_repeat);
+
+        //Zijn alle velden lang genoeg?
+        if(strlen($firstname)<2)$error[5]=true;   //Voornaam te kort
+        if(strlen($lastname)<2)$error[6]=true;  //Achternaam te kort
+        if(strlen($email)<5)$error[7]=true;     //Email te kort
+        if(strlen($password)<5)$error[8]=true;  //Wachtwoord te kort
+
+        //Is de email wel echt een email?
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error[7]=true;
+        }
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
 
         //Komen de wachtwoorden overeen?
         if($password!=$password_repeat)return 2;    //Een bericht weergeven dat de wachtwoorden niet overeen komen

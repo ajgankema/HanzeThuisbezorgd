@@ -1,4 +1,4 @@
-#login_popup {
+#login_popup, #register_popup {
     display: none;
 }
 .popup {
@@ -6,7 +6,7 @@
     box-shadow: 0 0 7px -1px black;
     width: 400px;
     padding: 20px;
-    margin: 15% auto;
+    margin: 10% auto 0;
     position: relative;
     text-align: center;
 }
@@ -58,7 +58,7 @@ p.errormsg {
     color: #636363;
 }
 .fancy_labels input[type="text"], .fancy_labels input[type="email"], .fancy_labels input[type="password"] {
-    margin: 16px 0;
+    margin: 18px 0;
     border: solid 1px #929292;
     padding: 10px 15px;
     border-radius: 6px;

@@ -83,6 +83,10 @@ function register(){
     } elseif($returns==4) {
         //Er ging iets fout
         $return_URL.="?register=unknownerror";
+    } elseif(is_array($returns)) {
+        if(empty($_SESSION))session_start();
+        $return_URL.="?register=incorrectinput";
+        $_SESSION['register_errors']=$returns;
     }
 
     //Send back to the page
