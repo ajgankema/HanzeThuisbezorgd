@@ -28,17 +28,12 @@ include("php/form_handler.php");
 
 //Include screen files
 include("php/screens/head.php");
-include("php/screens/login.php");
+if(!$user->isLoggedIn())include("php/screens/login.php");
+if($user->isRestaurantManager())include("php/screens/restaurant_beheer.php");
 
 if($user->isLoggedIn()){
     echo '<a href="?logout=true">Uitloggen</a>';
-    var_dump($_SESSION);
+    echo '<a href="/Thuisbezorgd/Account">Account beheer</a>';
 } else {
     echo '<a href="javascript:void(0)" onclick="openLogin()">Inloggen</a>';
 }
-
-?>
-<header>
-    <h1><?=$restaurant->getName()?></h1>
-    <p><?=$restaurant->getDescription();?></p>
-</header>

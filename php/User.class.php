@@ -7,6 +7,7 @@ class User{
     private $firstname = null;
     private $lastname = null;
     private $email = null;
+    private $user_id = null;
 
     /**
      * Constructor
@@ -21,6 +22,7 @@ class User{
             $this->firstname=$_SESSION['firstname'];
             $this->lastname=$_SESSION['lastname'];
             $this->email=$_SESSION['email'];
+            $this->user_id=$_SESSION['user_id'];
         }
 
     }
@@ -185,6 +187,176 @@ class User{
 
 
     /**
+     * Adres functies
+     */
+    public function addAddress($streetname, $housenumber, $postalcode, $city, $standard){
+
+        //Making ready a variable
+        $error = array();
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $streetname = $db->real_escape_string($streetname);
+        $housenumber = $db->real_escape_string($housenumber);
+        $postalcode = $db->real_escape_string($postalcode);
+        $city = $db->real_escape_string($city);
+        $standard = $db->real_escape_string($standard);
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Will the address be standard?
+        if(!empty($standard)){
+            $standard=1;    //The address will be a standard address
+        } else {
+            $standard=0;    //The address wont be a standard address
+        }
+
+        //Have the fields been entered correctly?
+        if(strlen($streetname)<3)$error[2]=true;    //Not long enough
+        if(strlen($housenumber)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($postalcode)<6)$error[4]=true;    //Dutch postal code is always 6 long
+        if(strlen($city)<3)$error[5]=true;          //Not long enough
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
+
+        //Save it to the database
+        $sql = "INSERT INTO Addresses
+                  (streetname, housenumber, postalcode, city, standard_address, user_id)
+                VALUES
+                  ('$streetname','$housenumber','$postalcode','$city','$standard','$user_id')";
+        $result = $db->query($sql);
+
+        //Close the database
+        $db->close();
+
+        //Has it been uploaded?
+        if($result){
+            return true;
+        }
+        return false;
+
+    }
+
+    public function editAddress($streetname, $housenumber, $postalcode, $city, $standard, $address_id){
+
+        //Making ready a variable
+        $error = array();
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $streetname = $db->real_escape_string($streetname);
+        $housenumber = $db->real_escape_string($housenumber);
+        $postalcode = $db->real_escape_string($postalcode);
+        $city = $db->real_escape_string($city);
+        $standard = $db->real_escape_string($standard);
+        $address_id = $db->real_escape_string($address_id);
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Will the address be standard?
+        if(!empty($standard)){
+            $standard=1;    //The address will be a standard address
+        } else {
+            $standard=0;    //The address wont be a standard address
+        }
+
+        //Have the fields been entered correctly?
+        if(strlen($streetname)<3)$error[2]=true;    //Not long enough
+        if(strlen($housenumber)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($postalcode)<6)$error[4]=true;    //Dutch postal code is always 6 long
+        if(strlen($city)<3)$error[5]=true;          //Not long enough
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
+
+        //Save it to the database
+        $sql = "UPDATE Addresses
+                SET
+                  streetname = '$streetname',
+                  housenumber = '$housenumber',
+                  postalcode = '$postalcode',
+                  city = '$city',
+                  standard_address = $standard
+                WHERE
+                  user_id = '$user_id'
+                AND
+                  address_id = '$address_id'";
+        $result = $db->query($sql);
+
+        //Close the database
+        $db->close();
+
+        //Has it been uploaded?
+        if($result){
+            return true;
+        }
+        return false;
+
+    }
+
+    public function removeAddress($address_id){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $address_id = $db->real_escape_string($address_id);
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Do database
+        $sql = "DELETE FROM addresses
+                WHERE address_id = '$address_id'
+                AND user_id = '$user_id'";
+        $result = $db->query($sql);
+
+        if($result){
+            return true;
+        }
+        return false;
+
+    }
+
+    public function getAddresses(){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Get the addresses
+        $sql = "SELECT address_id, streetname, housenumber, postalcode, city, standard_address
+                FROM addresses
+                WHERE user_id = '$user_id'";
+        $results = $db->query($sql);
+
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+
+        return $array;
+
+    }
+
+
+    /**
      * Getters
      */
     public function getRole(){
@@ -204,6 +376,11 @@ class User{
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    public function getUserId()
+    {
+        return $this->user_id;
     }
 
 }

@@ -1,4 +1,4 @@
-#login_popup, #register_popup {
+#login_popup, #register_popup, #address_popup {
     display: none;
 }
 .popup {
@@ -9,6 +9,7 @@
     margin: 10% auto 0;
     position: relative;
     text-align: center;
+    background: white;
 }
 .popup .title {
     height: 52px;
@@ -34,6 +35,7 @@
     height: 100%;
     top: 0;
     left: 0;
+    background: rgba(0, 0, 0, 0.09);
 }
 p.errormsg {
     font-size: 9pt;
@@ -50,12 +52,16 @@ p.errormsg {
 }
 .fancy_labels td {
     position: relative;
+    width: 50%;
 }
 .fancy_labels label {
     position: absolute;
     font-size: 10pt;
     left: 2px;
     color: #636363;
+}
+.fancy_labels label.for_checkbox {
+    left: 25px;
 }
 .fancy_labels input[type="text"], .fancy_labels input[type="email"], .fancy_labels input[type="password"] {
     margin: 18px 0;
@@ -73,7 +79,7 @@ p.errormsg {
 .fancy_labels input[type="submit"]:focus {
     outline: none;
 }
-.fancy_labels input[type="submit"] {
+.fancy_labels input[type="submit"], .fancy_labels button {
     width: 100%;
     background: #6ed062;
     box-shadow: 0 2px 0 0 #5ba552;
@@ -86,7 +92,11 @@ p.errormsg {
     transition: box-shadow 0.25s, transform 0.25s;
     cursor: pointer;
 }
-.fancy_labels input[type="submit"]:hover {
+.fancy_labels input[type="submit"]:hover, .fancy_labels button:hover, .fancy_labels button.delete:hover {
     box-shadow: 0 0 0 0 #5ba552;
     transform: translateY(3px);
+}
+.fancy_labels button.delete {
+    background: #ef2f2f;
+    box-shadow: 0 2px 0 0 #ab3030;
 }

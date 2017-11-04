@@ -2,3 +2,32 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
 }
+
+span.bold {
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+.adres_table {
+    width: 800px;
+    border: solid 1px;
+}
+.adres_table .adres {
+    border-top: solid 1px;
+    position: relative;
+}
+.adres_table .adres p {
+    font-size: 10pt;
+    margin: 7px 10px;
+}
+.adres_table .adres a {
+    position: absolute;
+    top: 35%;
+    right: 20px;
+}

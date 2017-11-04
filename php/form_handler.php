@@ -31,6 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case "login":
             login();
             break;
+        case "addAddress":
+            addAddress();
+            break;
+        case "editAddress":
+            editAddress();
+            break;
         default:
             return false;
     }
@@ -45,13 +51,13 @@ function login(){
     $return_URL = explode("?",$_POST['return_url'])[0];
 
     $user = new User();
-    $returns = $user->tryLogin($email, $password);
+    $response = $user->tryLogin($email, $password);
 
-    if($returns==1){
+    if($response==1){
         //Gebruiker is ingelogd
         header("Location: $return_URL");
         exit();
-    } elseif($returns==2) {
+    } elseif($response==2) {
         //Verkeerd e-mail adres of wachtwoord
         $return_URL.="?login=wrongcredentials";
         header("Location: $return_URL");
@@ -72,27 +78,113 @@ function register(){
 
     //Get the user object and use the register function
     $user = new User();
-    $returns = $user->register($firstname, $lastname, $email, $password, $password_repeat);
+    $response = $user->register($firstname, $lastname, $email, $password, $password_repeat);
 
     //What has been returned from the function?
-    if($returns==1){
+    if($response==1){
         //User has been registered and logged in
-    } elseif($returns==2) {
+    } elseif($response==2) {
         //Wachtwoorden komen niet overeen
         $return_URL.="?register=passwordsdontmatch";
-    } elseif($returns==3) {
+    } elseif($response==3) {
         //Email bestaat al
         $return_URL.="?register=emailexists";
-    } elseif($returns==4) {
+    } elseif($response==4) {
         //Er ging iets fout
         $return_URL.="?register=unknownerror";
-    } elseif(is_array($returns)) {
+    } elseif(is_array($response)) {
         if(empty($_SESSION))session_start();
         $return_URL.="?register=incorrectinput";
-        $_SESSION['register_errors']=$returns;
+        $_SESSION['register_errors']=$response;
     }
 
     //Send back to the page
     header("Location: $return_URL");
     exit();
+}
+
+function addAddress(){
+    include_once("User.class.php");
+
+    //Standard can be empty if its not checked
+    if(empty($_POST['standard_address'])){
+        $standard = null;
+    } else {
+        $standard = $_POST['standard_address'];
+    }
+
+    //Setup all the variables
+    $streetname = $_POST['streetname'];
+    $housenumber = $_POST['housenumber'];
+    $postalcode = $_POST['postalcode'];
+    $city = $_POST['city'];
+    $return_URL = explode("?",$_POST['return_url'])[0];
+
+    $user = new User();
+    $response = $user->addAddress($streetname,$housenumber,$postalcode,$city,$standard);
+
+    if($response==1){
+        //Data is opgeslagen
+    } elseif(is_array($response)){
+        if(empty($_SESSION))session_start();
+        $return_URL.="?addAddress=incorrectinput";
+        $_SESSION['addAddress_errors']=$response;
+    }
+
+    //Send back to the page
+    header("Location: $return_URL");
+    exit();
+
+}
+
+function editAddress(){
+    include_once("User.class.php");
+
+    //Standard can be empty if its not checked
+    if(empty($_POST['standard_address'])){
+        $standard = null;
+    } else {
+        $standard = $_POST['standard_address'];
+    }
+
+    //Setup all the variables
+    $streetname = $_POST['streetname'];
+    $housenumber = $_POST['housenumber'];
+    $postalcode = $_POST['postalcode'];
+    $city = $_POST['city'];
+    $address_id = $_POST['address_id'];
+    $deletecheck = $_POST['deletecheck'];
+    $return_URL = explode("?",$_POST['return_url'])[0];
+
+    $user = new User();
+    if($deletecheck=="true"){
+
+        $response = $user->removeAddress($address_id);
+
+        if($response==1){
+            //Data is verwijderd
+        } else {
+            $return_URL.="?removeAddress=unknownerror";
+        }
+
+    } else {
+
+        $response = $user->editAddress($streetname,$housenumber,$postalcode,$city,$standard,$address_id);
+
+        if($response==1){
+            //Data is opgeslagen
+        } elseif(is_array($response)){
+            if(empty($_SESSION))session_start();
+            $return_URL.="?addAddress=incorrectinput";
+            $_SESSION['addAddress_errors']=$response;
+        } else {
+            $return_URL.="?editAddress=unknownerror";
+        }
+
+    }
+
+    //Send back to the page
+    header("Location: $return_URL");
+    exit();
+
 }
