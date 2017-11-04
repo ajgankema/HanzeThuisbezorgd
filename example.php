@@ -16,8 +16,13 @@ $db = (new Db())->getConnection();
 //Check for $_GET requests
 include("php/form_handler.php");
 
+//Include screen files
+include("php/screens/head.php");
+include("php/screens/login.php");
+
 if(!$user->isLoggedIn()) {
     ?>
+    <a href="javascript:void(0)" onclick="openLogin()" title="Inloggen">Inloggen</a>
     <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post">
         <table>
             <tr>
@@ -72,37 +77,6 @@ if(!$user->isLoggedIn()) {
                 </td>
                 <td>
                     <input type="submit" value="Registreren" name="submit">
-                </td>
-            </tr>
-        </table>
-    </form>
-
-    <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post">
-        <table>
-            <tr>
-                <td>
-                    <label for="email_IN">E-Mail adres:</label>
-                </td>
-                <td>
-                    <input type="email" id="email_IN" name="email" placeholder="example@example.com">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="pass_IN">Wachtwoord:</label>
-                </td>
-                <td>
-                    <input type="password" name="password" id="pass_IN">
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="hidden" value="login" name="type">
-                    <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
-                </td>
-                <td>
-                    <input type="submit" value="Inloggen" name="submit">
                 </td>
             </tr>
         </table>

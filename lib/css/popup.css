@@ -1,3 +1,87 @@
 #login_popup {
     display: none;
 }
+.popup {
+    border-radius: 7px;
+    box-shadow: 0 0 7px -1px black;
+    width: 400px;
+    padding: 20px;
+    margin: 15% auto;
+    position: relative;
+    text-align: center;
+}
+.popup .title {
+    height: 52px;
+}
+.popup .title h2 {
+    background: #4492b7;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    color: white;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.popup table {
+    width: 100%;
+}
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#wachtwoord_vergeten {
+    font-size: 8pt;
+}
+
+.fancy_labels {
+    border-collapse: collapse;
+}
+.fancy_labels td {
+    position: relative;
+}
+.fancy_labels label {
+    position: absolute;
+    font-size: 10pt;
+    left: 2px;
+    color: #636363;
+}
+.fancy_labels input[type="text"], .fancy_labels input[type="email"], .fancy_labels input[type="password"] {
+    margin: 16px 0;
+    border: solid 1px #929292;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: white;
+    width: 100%;
+}
+.fancy_labels input[type="text"]:focus, .fancy_labels input[type="email"]:focus, .fancy_labels input[type="password"]:focus {
+    outline: none;
+    border-color: #84b4bf;
+    box-shadow: 0px 1px 3px 0px #dedede;
+}
+.fancy_labels input[type="submit"]:focus {
+    outline: none;
+}
+.fancy_labels input[type="submit"] {
+    width: 100%;
+    background: #6ed062;
+    box-shadow: 0 2px 0 0 #5ba552;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11pt;
+    transition: box-shadow 0.25s, transform 0.25s;
+    cursor: pointer;
+}
+.fancy_labels input[type="submit"]:hover {
+    box-shadow: 0 0 0 0 #5ba552;
+    transform: translateY(3px);
+}
