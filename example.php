@@ -39,6 +39,6 @@ if($user->isLoggedIn()){
 
 ?>
 <header>
-    <h1><?=$restaurant->?></h1>
+    <h1><?=$restaurant->getName()?></h1>
     <p><?=$restaurant->getDescription();?></p>
 </header>
