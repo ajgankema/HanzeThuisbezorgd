@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             include_once("User.class.php");
             $user = new User();
             $user->logout();
+
+            header("Location: ".$_SESSION['previous_page']);
+            exit();
         }
     }
 
