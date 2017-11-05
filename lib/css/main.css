@@ -1,6 +1,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
+    background: #fff6ef;
 }
 
 span.bold {
@@ -8,6 +9,104 @@ span.bold {
 }
 
 
+header {
+    position: absolute;
+    display: -webkit-inline-box;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 60px;
+
+    z-index: 10;
+}
+header .content {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header a.logo {
+    display: block;
+    font-size: 25pt;
+    padding: 13px 30px;
+    background: rgba(255, 48, 0, 0.5);
+    width: fit-content;
+    text-align: center;
+    color: white;
+}
+header .title {
+    position: absolute;
+    top: 0;
+    margin: 14px;
+    font-size: 16pt;
+    left: 72px;
+    /*right: 0;*/
+    text-align: center;
+}
+header .title span {
+    padding: 10px 20px;
+    color: white;
+    background: rgba(255, 48, 0, 0.5);
+}
+header .nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+header .nav ul {
+    display: -webkit-inline-box;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+header .nav a.button {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 7px 20px;
+    text-decoration: none;
+    border-radius: 7px;
+    margin: 11px;
+}
+header .nav a.button.no_text {
+    padding: 10px 20px;
+}
+
+#big_screen {
+    position: relative;
+
+    height: 70%;
+    width: 100%;
+
+    background-image: url(/Thuisbezorgd/lib/img/placeholder.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    overflow: hidden;
+    box-shadow: 0px -10px 20px -10px black inset;
+}
+#big_screen::after, #big_screen::before {
+    content: "";
+    display: block;
+    background: #fff6ef;
+    position: absolute;
+    width: 170px;
+    height: 15px;
+    bottom: 40px;
+
+
+    box-shadow: 0px -2px 15px -3px black;
+}
+#big_screen::before {
+    left: -60px;
+    transform: rotateZ(45deg);
+}
+#big_screen::after {
+    right: -60px;
+    transform: rotateZ(-45deg);
+}
 
 
 

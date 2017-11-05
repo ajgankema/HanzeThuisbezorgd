@@ -15,7 +15,8 @@
     height: 52px;
 }
 .popup .title h2 {
-    background: #4492b7;
+    /*background: #4492b7;*/
+    background: rgb(255, 130, 101);
     margin: 0;
     position: absolute;
     top: 0;
@@ -36,6 +37,7 @@
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.09);
+    z-index: 11;
 }
 p.errormsg {
     font-size: 9pt;
