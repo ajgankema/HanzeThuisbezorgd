@@ -4,7 +4,7 @@
             <i class="fa fa-cutlery" aria-hidden="true"></i>
         </a>
         <div class="title">
-            <span><?=$restaurant->getName();?></span>
+            <a href="<?=$config['Base_URL'];?>"><?=$restaurant->getName();?></a>
         </div>
         <div class="nav">
 

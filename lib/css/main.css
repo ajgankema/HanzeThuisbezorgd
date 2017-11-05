@@ -3,15 +3,32 @@ body {
     margin: 0;
     background: #fff6ef;
 }
+p {
+    font-size: 11pt;
+}
+
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#container.inset_from_header {
+    margin-top: 80px;
+}
 
 span.bold {
     font-weight: bold;
 }
 
 
+/**
+ *
+ *  HEADER
+ *
+ */
 header {
-    position: absolute;
     display: -webkit-inline-box;
+    position: absolute;
+    padding: 10px 0;
 
     top: 0;
     left: 0;
@@ -45,10 +62,11 @@ header .title {
     /*right: 0;*/
     text-align: center;
 }
-header .title span {
+header .title a {
     padding: 10px 20px;
     color: white;
     background: rgba(255, 48, 0, 0.5);
+    text-decoration: none;
 }
 header .nav {
     position: absolute;
@@ -74,6 +92,11 @@ header .nav a.button.no_text {
     padding: 10px 20px;
 }
 
+/**
+ *
+ *  HOME PAGE
+ *
+ */
 #big_screen {
     position: relative;
 
@@ -110,16 +133,63 @@ header .nav a.button.no_text {
 
 
 
+/**
+*
+*   ACCOUNT PAGE
+*
+**/
 
+#account {
+    background: #fff9f7;
+    margin-top: 70px;
+    padding: 20px;
+    box-shadow: 0px 0px 8px -2px rgb(113, 113, 113);
+    border-radius: 7px;
+}
+#account h1 {
+    margin: -20px;
+    margin-bottom: 0;
+    background: #ff7777;
+    color: white;
+    width: fit-content;
+    padding: 10px 20px;
+    border-top-left-radius: 7px;
+    font-size: 18pt;
+    font-weight: normal;
+}
 
-
+.block-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.block {
+    position: relative;
+    min-width: 560px;
+    padding: 10px;
+    flex-grow: 1;
+}
+.block h3 {
+    border-bottom: solid 1px grey;
+    box-shadow: 0px 4px 10px -8px black;
+    padding: 0 3px;
+    margin: 20px 0 10px 0;
+    color: #3e3e3e;
+}
+.block td {
+    padding: 0 20px;
+}
 .adres_table {
-    width: 800px;
-    border: solid 1px;
+    width: 100%;
 }
 .adres_table .adres {
-    border-top: solid 1px;
+    border-top: solid 1px transparent;
     position: relative;
+    height: 55px;
+    cursor: pointer;
+}
+.adres_table .adres:hover {
+    background: #fff6ef;
+    box-shadow: 1px 1px 5px -2px black;
 }
 .adres_table .adres p {
     font-size: 10pt;
@@ -129,4 +199,25 @@ header .nav a.button.no_text {
     position: absolute;
     top: 35%;
     right: 20px;
+}
+
+button.fancy {
+    background: #34b2e2;
+    box-shadow: 0 2px 0 0 #488298;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+    transition: box-shadow 0.25s, transform 0.25s;
+    cursor: pointer;
+    margin: 10px;
+}
+button.fancy:focus {
+    outline: none;
+}
+button.fancy:hover {
+    box-shadow: 0 0 0 0 #5ba552;
+    transform: translateY(3px);
 }
