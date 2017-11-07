@@ -4,7 +4,7 @@
             <i class="fa fa-cutlery" aria-hidden="true"></i>
         </a>
         <div class="title">
-            <a href="<?=$config['Base_URL'];?>"><?=$restaurant->getName();?></a>
+            <a href="<?=$config['Base_URL'];?>"><?=$restaurant->getName();?>ISnack.nl</a>
         </div>
         <div class="nav">
 
@@ -41,5 +41,20 @@
 
 
         </div>
+    </div>
+    <div id="zoekpaneel">
+        <form>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input id="search_input" type="text" class="search-query form-control" placeholder="Adres of postcode..." />
+                    <span class="input-group-btn">
+                            <button class="btn btn-danger" type="button">
+                                <span class=" glyphicon glyphicon-search">
+                                </span>
+                            </button>
+                        </span>
+                </div>
+            </div>
+        </form>
     </div>
 </header>

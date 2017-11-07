@@ -35,3 +35,4 @@ if(!$user->isLoggedIn())include("php/screens/login.php");
  */
 
 include("php/screens/home.php");
+?>
