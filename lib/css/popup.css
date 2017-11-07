@@ -1,10 +1,10 @@
-#login_popup, #register_popup, #address_popup {
+#login_popup, #register_popup, #address_popup, #review_popup {
     display: none;
 }
 .popup {
     border-radius: 7px;
     box-shadow: 0 0 7px -1px black;
-    width: 400px;
+    width: 600px;
     padding: 20px;
     margin: 10% auto 0;
     position: relative;
@@ -101,4 +101,13 @@ p.errormsg {
 .fancy_labels button.delete {
     background: #ef2f2f;
     box-shadow: 0 2px 0 0 #ab3030;
+}
+.fancy_labels textarea#description_IN.description_IN {
+    width: 100%;
+    height: 250px;
+    margin: 18px 0;
+    border: solid 1px #929292;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: white;
 }

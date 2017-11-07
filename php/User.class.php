@@ -360,7 +360,110 @@ class User{
         return $array;
 
     }
+    public function addUserReview($title, $description, $rating){
 
+        //Making ready a variable
+        $error = array();
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $title = $db->real_escape_string($title);
+        $description = $db->real_escape_string($description);
+        $rating = $db->real_escape_string($$rating);
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Will the address be standard?
+        if(!empty($standard)){
+            $standard=1;    //The address will be a standard address
+        } else {
+            $standard=0;    //The address wont be a standard address
+        }
+
+        //Have the fields been entered correctly?
+        if(strlen($title)<3)$error[2]=true;    //Not long enough
+        if(strlen($description)<1)$error[3]=true;   //Nothing filled in
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
+
+        //Save it to the database
+        $sql = "INSERT INTO Reviews
+                  (title, description, rating)
+                VALUES
+                  ('$title','$description','$rating')
+                WHERE user_id = '$user_id'";
+
+        $result = $db->query($sql);
+
+        //Close the database
+        $db->close();
+
+        //Has it been uploaded?
+        if($result){
+            return true;
+        }
+        return false;
+
+    }
+
+        public function getAllUserReviews(){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Get the Reviews
+        $sql = "SELECT review_id, reviews.restaurant_id, user_id, title, reviews.description, rating, restaurant.name 
+                FROM reviews 
+                INNER JOIN restaurant ON restaurant.restaurant_id = reviews.restaurant_id
+                WHERE user_id = '$user_id'";
+        $results = $db->query($sql);
+
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+
+        return $array;
+
+    }
+        public function removeReview($restaurant_id){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $user_id = $db->real_escape_string($this->getUserId());
+
+        //Get the Reviews
+        $sql = "DELETE review_id, restaurant_id, user_id, title, description, rating
+                FROM reviews
+                WHERE $restaurant_id = '$restaurant_id'";
+        $results = $db->query($sql);
+        print("delete voltooid");
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+
+        return $array;
+
+    }
 
     /**
      * Getters

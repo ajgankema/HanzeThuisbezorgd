@@ -147,6 +147,7 @@ button.fancy {
     transition: box-shadow 0.25s, transform 0.25s;
     cursor: pointer;
     margin: 10px;
+    height: 28.4px;
 }
 button.fancy:focus {
     outline: none;

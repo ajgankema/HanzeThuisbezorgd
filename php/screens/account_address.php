@@ -2,6 +2,7 @@
 
 $popupOpened = 0;
 $addressErrorMsg = null;
+$reviewErrorMsg = null;
 
 if(!empty($_GET['addAddress'])){
 
@@ -43,6 +44,25 @@ if(!empty($_GET['editAddress'])){
     }
 
 }
+if(!empty($_GET['editReview'])){
+    switch($_GET['editReview']){
+        case "unknownerror":
+            $popupOpened=3;
+            $reviewErrorMsg = "Er is iets mis gegaan!";
+            break;
+        case "incorrectinput":
+            $popupOpened=3;
+            foreach($_SESSION['addreview_errors'] as $key=>$error){
+                if($key==2)$reviewErrorMsg.="Titel is leeg.";
+                if($key==3)$reviewErrorMsg.="Review is leeg.";
+                if($key==4)$reviewErrorMsg.="Geen rating gegeven.";
+                $reviewErrorMsg.="<br/>";
+            }
+            break;
+        default:
+            break;
+    }
+}
 if(!empty($_GET['removeAddress'])){
 
     switch($_GET['removeAddress']){
@@ -64,6 +84,7 @@ if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErr
     $(function(){
         if(<?=$popupOpened;?>==1)openAddAddress();
         if(<?=$popupOpened;?>==2)openEditAddress();
+        if(<?=$popupOpened;?>==3)openEditReview();
     });
 </script>
 <div id="address_popup">
@@ -127,6 +148,60 @@ if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErr
                                 <br/>
                                 <input type="hidden" name="deletecheck" value="false" id="inputDeleteCheck">
                                 <button type="button" class="delete" onclick="deleteAddress(true)">Verwijderen</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="review_popup">
+    <div class="overlay" id="popup_overlay">
+        <div class="popup">
+            <div class="title">
+                <h2 class="editReview">Review aanpassen</h2>
+            </div>
+            <?=$reviewErrorMsg;?>
+            <div class="content">
+                <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="review_form">
+                    <table class="fancy_labels">
+                        <tr>
+                            <td>
+                                <label for="title_IN">Titel</label>
+                                <input id="title_IN" type="text" name="title">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="description_IN">Review</label>
+                                <textarea class="description_IN" id="description_IN" type="text" name="description" cols="40" row="5"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="rating_IN">rating</label>
+                                <input id="rating_IN" type="text" name="rating" maxlength="10">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" value="review_id" name="review_id" id="review_id">
+                                <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
+                                <input type="hidden" name="type" value="reviewAddress" id="inputType">
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="editReviewSubmit" class="fancy_labels">
+                        <tr>
+                            <td>
+                                <br/>
+                                <input type="submit" name="submit" value="Opslaan">
+                            </td>
+                            <td>
+                                <br/>
+                                <input type="hidden" name="deletecheck" value="false" id="inputDeleteCheck">
+                                <button type="button" class="delete" onclick="deleteReview(true)">Verwijderen</button>
                             </td>
                         </tr>
                     </table>

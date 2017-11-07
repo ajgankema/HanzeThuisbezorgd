@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    print_r($_POST);
     //What kind of form are we dealing with?
     switch($_POST['type']){
         case "register":
@@ -36,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case "editAddress":
             editAddress();
+            break;
+        case "editReview":
+            editReview();
             break;
         default:
             return false;
@@ -189,4 +192,24 @@ function editAddress(){
     header("Location: $return_URL");
     exit();
 
+}
+function editReview(){
+    include_once("User.class.php");
+    //Setup all the variables
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $rating = $_POST['rating'];
+    $inputDeleteCheck = $_POST['deletecheck'];
+    $review_ID = $_POST['review_id'];
+    $return_URL = explode("?",$_POST['return_url'])[0];
+
+    $user = new User();
+
+    if($inputDeleteCheck=="true"){
+        /*
+        verwijder
+*/
+    } else {
+        //doe wat als er geen delete is
+    }
 }

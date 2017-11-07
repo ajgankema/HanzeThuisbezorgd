@@ -43,6 +43,25 @@
                     </div>
                     <button onclick="openAddAddress()" class="fancy">Adres toevoegen</button>
                 </div>
+                <div class="block">
+                    <h3>Reviews van <?=$user->getFirstname();?></h3>
+                    <div class="review_table">
+                        <?php
+                        foreach($user->getAllUserReviews() as $ad){
+                            ?>
+                            <div class="Reviews">
+                                <p class="title"><span class="bold"><?=$ad['title'];?> <?=$ad['description'];?></span> Rating <?=$ad['rating'];?> Bij <?=$ad['name'];?></p>
+                                <button onclick="openEditReview('<?=$ad['title'];?>','<?=$ad['description'];?>','<?=$ad['rating'];?>')" title="Review wijzigen" class="fancy">wijzig</a>
+                                <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="review_form">
+                                    <input type="hidden" name="deletecheck" value="false" id="inputDeleteCheck">
+                                    <button type="button" class="fancy" onclick="deleteReview(true)">Review Verwijderen</button>
+                                </form>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
