@@ -2,8 +2,8 @@
     <?php include("header.php"); ?>
 
     <div id="container" class="inset_from_header">
-        <div id="account">
-            <h1>Hallo, <?=$user->getFirstname();?> <?=$user->getLastname();?>!</h1>
+        <div id="account" class="arena">
+            <h1 class="arena_title">Hallo, <?=$user->getFirstname();?> <?=$user->getLastname();?>!</h1>
             <div class="block-grid">
                 <div class="block">
                     <h3>Gebruiker informatie</h3>

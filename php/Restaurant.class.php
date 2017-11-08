@@ -39,6 +39,14 @@ class Restaurant{
     }
 
     /**
+     * @return Integer
+     */
+    public function getRestaurantId()
+    {
+        return $this->restaurant_id;
+    }
+
+    /**
      * @return String
      */
     public function getName()

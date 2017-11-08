@@ -95,6 +95,9 @@ header .nav a.button {
     border-radius: 7px;
     margin: 11px;
 }
+header .nav a.button.green {
+    background: rgba(12, 191, 18, 0.55);
+}
 header .nav a.button.no_text {
     padding: 10px 20px;
 }
@@ -115,6 +118,27 @@ header .nav a.button.no_text {
     border-top: 40px solid white;
     margin: 0 auto auto auto;
 }
+
+.arena {
+    background: #fff9f7;
+    margin-top: 70px;
+    padding: 20px;
+    box-shadow: 0px 0px 8px -2px rgb(113, 113, 113);
+    border-radius: 7px;
+    margin-bottom: 30px;
+}
+.arena .arena_title {
+    margin: -20px;
+    margin-bottom: 0;
+    background: #ff7777;
+    color: white;
+    width: fit-content;
+    padding: 10px 20px;
+    border-top-left-radius: 7px;
+    font-size: 18pt;
+    font-weight: normal;
+}
+
 /**
  *
  *  HOME PAGE
@@ -212,7 +236,7 @@ button.fancy:hover {
     margin-top:8%;
 }
 #footer{
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
@@ -243,22 +267,10 @@ button.fancy:hover {
 **/
 
 #account {
-    background: #fff9f7;
-    margin-top: 70px;
-    padding: 20px;
-    box-shadow: 0px 0px 8px -2px rgb(113, 113, 113);
-    border-radius: 7px;
+
 }
 #account h1 {
-    margin: -20px;
-    margin-bottom: 0;
-    background: #ff7777;
-    color: white;
-    width: fit-content;
-    padding: 10px 20px;
-    border-top-left-radius: 7px;
-    font-size: 18pt;
-    font-weight: normal;
+
 }
 
 .block-grid {
@@ -312,4 +324,50 @@ button.fancy:hover {
 span.text-label{
     display: inline-block;
     width: 100px;
+}
+
+/**
+ *
+ *  Menukaart
+ *
+ */
+.categorie .etenlijst {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.etenswaar {
+    background: #ffffff;
+    box-shadow: 0px 0px 7px -2px black;
+    border-radius: 7px;
+    position: relative;
+    height: 60px;
+    margin: 10px;
+    min-width: 500px;
+    flex-grow: 1;
+}
+.etenswaar h4 {
+    margin: 13px 15px;
+}
+.etenswaar p.description {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    font-style: italic;
+    color: grey;
+}
+.etenswaar p.price {
+    position: absolute;
+    top: 19px;
+    right: 80px;
+}
+.etenswaar .functions {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+}
+.etenswaar .functions a {
+    color: #ff7777;
+    font-size: 20pt;
+    margin-left: 6px;
 }

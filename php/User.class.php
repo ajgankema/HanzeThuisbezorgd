@@ -531,7 +531,8 @@ class User{
         return false;
 
     }
-        public function updateReview($title, $description, $rating, $review_id){
+
+    public function updateReview($title, $description, $rating, $review_id){
 
         //Include important files
         include_once("db.php");

@@ -1,3 +1,5 @@
+<?php if(!empty($_SESSION['Winkelwagen']))$green = "green";?>
+
 <header>
     <div class="content">
         <a href="<?=$config['Base_URL'];?>" class="logo">
@@ -11,7 +13,7 @@
             <?php if($user->isLoggedIn()):?>
                 <ul>
                     <li>
-                        <a href="javascript:void(0)" title="Winkelwagen" class="button">
+                        <a href="<?=$config['Base_URL'];?>/winkelwagen" title="Winkelwagen" class="button <?=$green;?>">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Winkelwagen
                         </a>
