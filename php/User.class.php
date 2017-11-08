@@ -190,70 +190,6 @@ class User{
         $this->loggedIn = false;
     }
 
-    public function newPassword($pass, $new_pass, $new_pass_again){
-
-        //Making ready a variable
-        $error = array();
-
-        //Include important files
-        include_once("config.php");
-        include_once("db.php");
-
-        //Connect to the database
-        $db = (new Db())->getConnection();
-
-        //Escape strings
-        $pass = $db->real_escape_string($pass);
-        $new_pass = $db->real_escape_string($new_pass);
-        $new_pass_again = $db->real_escape_string($new_pass_again);
-        $user_id = $db->real_escape_string($this->getUserId());
-
-        //Have the fields been entered correctly?
-        if(strlen($new_pass)<5)$error[2]=true;    //Not long enough
-
-        //Komen de wachtwoorden overeen?
-        if($new_pass!=$new_pass_again)$error[3]=true;    //Een bericht weergeven dat de wachtwoorden niet overeen komen
-
-        //Is het wachtwoord correct?
-        $sql = "SELECT hash
-                FROM users
-                WHERE user_id = '$user_id'";
-        $result = $db->query($sql);
-        $result = $result->fetch_assoc();
-
-        //De hash van de gebruiker
-        $hash = $result['hash'];
-
-        //Komt het overeen met het wachtwoord als je het in een hash gooit?
-        if(!password_verify($pass,$hash)){
-            $error[4]=true;     //Wachtwoord was incorrect
-        }
-
-        //Als er een error aanwezig is, dan word die nu gereturned
-        if(!empty($error))return $error;
-
-        //Wachtwoord encryptie
-        $hash = password_hash($new_pass, PASSWORD_BCRYPT, $config['ENCRYPT_OPTIONS']);
-
-        //Save it to the database
-        $sql = "UPDATE users
-                SET
-                  hash = '$hash'
-                WHERE
-                  user_id = '$user_id'";
-        $result = $db->query($sql);
-
-        //Close the database
-        $db->close();
-
-        //Has it been uploaded?
-        if($result){
-            return true;
-        }
-        return false;
-
-    }
-
 
     /**
      * Adres functies
@@ -424,12 +360,6 @@ class User{
         return $array;
 
     }
-
-
-    /**
-     *  Review functies
-     */
-
     public function addUserReview($title, $description, $rating){
 
         //Making ready a variable
@@ -481,7 +411,7 @@ class User{
 
     }
 
-    public function getAllUserReviews(){
+        public function getAllUserReviews(){
 
         //Include important files
         include_once("db.php");
@@ -506,8 +436,7 @@ class User{
         return $array;
 
     }
-
-    public function removeReview($review_id){
+        public function removeReview($review_id){
 
         //Include important files
         include_once("db.php");

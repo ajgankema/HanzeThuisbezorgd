@@ -40,9 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case "editReview":
             editReview();
             break;
-        case "newPass":
-            newPass();
-            break;
         default:
             return false;
     }
@@ -108,31 +105,6 @@ function register(){
     //Send back to the page
     header("Location: $return_URL");
     exit();
-}
-
-function newPass(){
-
-    include_once("User.class.php");
-
-    $pass = $_POST['password'];
-    $new_pass = $_POST['new_password'];
-    $new_pass_again = $_POST['new_password_again'];
-    $return_URL = explode("?",$_POST['return_url'])[0];
-
-    $user = new User();
-    $response = $user->newPassword($pass,$new_pass,$new_pass_again);
-
-    if($response==1){
-        //Gebruiker is ingelogd
-    } elseif($response==2) {
-        //Verkeerd e-mail adres of wachtwoord
-        $return_URL.="?login=wrongcredentials";
-
-    }
-
-    header("Location: $return_URL");
-    exit();
-
 }
 
 function addAddress(){
@@ -221,7 +193,6 @@ function editAddress(){
     exit();
 
 }
-
 function editReview(){
     include_once("User.class.php");
     include("../php/config.php");
