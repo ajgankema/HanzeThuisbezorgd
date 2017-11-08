@@ -460,7 +460,45 @@ class User{
         return false;
 
     }
+        public function updateReview($title, $description, $rating, $review_id){
 
+        //Include important files
+        include_once("db.php");
+
+
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $title = $db->real_escape_string($title);
+        $description = $db->real_escape_string($description);
+        $rating = $db->real_escape_string($rating);
+        $review_id = $db->real_escape_string($review_id);
+
+        //Have the fields been entered correctly?
+        if(strlen($title)<3)$error[2]=true;    //Not long enough
+        //if(strlen($description)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($rating)<1)$error[4]=true;    //Dutch postal code is always 6 long
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
+
+        //Get the Reviews
+        $sql = "UPDATE reviews
+                SET
+                  title = '$title',
+                  description = '$description',
+                  rating = '$rating'
+                WHERE
+                  review_id = '$review_id'";
+        print($sql);
+        $result = $db->query($sql);
+        if($result){
+            header("Location: ".$config['Base_URL']."/Thuisbezorgd/Account/index.php");
+            return true;
+        }
+        return false;
+
+    }
     /**
      * Getters
      */
