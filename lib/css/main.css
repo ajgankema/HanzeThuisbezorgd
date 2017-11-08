@@ -255,6 +255,12 @@ button.fancy:hover {
 *   ACCOUNT PAGE
 *
 **/
+#edit_restaurant,input{
+    width:400px;
+}
+#edit_restaurant,textarea{
+    width:400px;
+}
 
 #account {
 
