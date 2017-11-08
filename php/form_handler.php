@@ -237,8 +237,7 @@ function editReview(){
 
     if($inputDeleteCheck=="true"){
         $user->removeReview($review_ID);
-
-    } else {
-        //doe wat als er geen delete is
+    } elseif($inputDeleteCheck=="false") {
+        $user->updateReview($title,$description,$rating,$review_ID);
     }
 }
