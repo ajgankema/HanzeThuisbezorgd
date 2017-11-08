@@ -4,7 +4,7 @@
             <i class="fa fa-cutlery" aria-hidden="true"></i>
         </a>
         <div class="title">
-            <a href="<?=$config['Base_URL'];?>"><?=$restaurant->getName();?>ISnack.nl</a>
+            <a href="<?=$config['Base_URL'];?>"><?=$restaurant->getName();?></a>
         </div>
         <div class="nav">
 
@@ -22,6 +22,19 @@
                             Account
                         </a>
                     </li>
+                    <?php
+                        if($user->isRestaurantManager())
+                        {
+                            ?>
+                                <li>
+                                    <a href="<?=$config['Base_URL'];?>/Restaurantbeheer" title="Wijzig restaurant" class="button">
+                                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                        Restaurant wijzigen
+                                    </a>
+                                </li>
+                    <?php
+                        }
+                    ?>
                     <li>
                         <a href="?logout=true" title="Uitloggen" class="button no_text">
                             <i class="fa fa-sign-out" aria-hidden="true"></i>

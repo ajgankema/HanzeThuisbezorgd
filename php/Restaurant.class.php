@@ -2,6 +2,7 @@
 
 class Restaurant{
 
+    private $restaurant_id;
     private $name;
     private $description;
     private $postalcode;
@@ -16,7 +17,7 @@ class Restaurant{
 
         global $db;
 
-        $sql = "SELECT r.name, r.description, r.postalcode, r.streetaddress, r.city, r.restaurant_type, u.firstname as manager_firstname, u.lastname as manager_lastname, u.email as manager_email
+        $sql = "SELECT r.restaurant_id, r.name, r.description, r.postalcode, r.streetaddress, r.city, r.restaurant_type, u.firstname as manager_firstname, u.lastname as manager_lastname, u.email as manager_email
                 FROM restaurant as r
                 INNER JOIN users as u
                 ON r.owner_id = u.user_id
@@ -24,6 +25,7 @@ class Restaurant{
         $result = $db->query($sql);
         $result = $result->fetch_assoc();
 
+        $this->restaurant_id = $result['restaurant_id'];
         $this->name = $result['name'];
         $this->description = $result['description'];
         $this->postalcode = $result['postalcode'];
@@ -108,6 +110,54 @@ class Restaurant{
         return $this->manager_email;
     }
 
+    /**
+     * @param = the new name or w/e
+     * Sets the new value for every restaurant param
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+    public function setPostalcode($postalcode)
+    {
+        $this->postalcode = $postalcode;
+    }
+    public function setStreetaddress($streetaddress)
+    {
+        $this->streetaddress = $streetaddress;
+    }
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+    public function setRestaurantType($type)
+    {
+        $this->restaurant_type = $type;
+    }
 
+    /**
+     * Saves the new values in the database
+     */
+    public function saveRestaurant()
+    {
+        global $db;
 
+        $qry = "UPDATE restaurant SET 
+                  name = '$this->name',
+                  description = '$this->description',
+                  postalcode = '$this->postalcode',
+                  streetaddress = '$this->streetaddress',
+                  city = '$this->city',
+                  restaurant_type = '$this->restaurant_type'
+                  WHERE restaurant_id = '$this->restaurant_id'";
+        $result = $db->query($qry);
+        if($result)
+            return true;
+
+        return false;
+    }
 }
