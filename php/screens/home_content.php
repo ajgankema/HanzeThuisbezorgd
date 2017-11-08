@@ -19,5 +19,4 @@
             </div>
         </div>
     </div>
-    <div class="arrow-down-footer"></div>
 </div>
