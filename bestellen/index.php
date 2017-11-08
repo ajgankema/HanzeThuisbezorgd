@@ -28,7 +28,10 @@ include("../php/form_handler.php");
 
 //Include screen files
 include("../php/screens/head.php");
-if(!$user->isLoggedIn())include("../php/screens/login.php");
+if(!$user->isLoggedIn()){
+    header("Location: ".$config['Base_URL']."/winkelwagen?login=open");
+    exit();
+}
 
 /**
  * HERE STARTS THE ACTUAL PAGE
