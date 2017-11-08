@@ -198,7 +198,7 @@ function editReview(){
     include("../php/config.php");
     //Setup all the variables
     $title = $_POST['title'];
-    $description = $_POST['description'];
+    $description = $_POST['description_IN'];
     $rating = $_POST['rating'];
     $inputDeleteCheck = $_POST['deletecheck'];
     $review_ID = $_POST['review_id'];
