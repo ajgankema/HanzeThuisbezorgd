@@ -175,7 +175,7 @@ if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErr
                         <tr>
                             <td>
                                 <label for="description_IN">Review</label>
-                                <textarea class="description_IN" id="description_IN" type="text" name="description" cols="40" row="5"></textarea>
+                                <textarea id="description_IN" class="description_IN" name="description_IN"></textarea>
                             </td>
                         </tr>
                         <tr>

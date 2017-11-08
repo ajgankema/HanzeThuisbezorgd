@@ -498,13 +498,11 @@ class User{
                 INNER JOIN restaurant ON restaurant.restaurant_id = reviews.restaurant_id
                 WHERE user_id = '$user_id'";
         $results = $db->query($sql);
-
         //Making a cleaner array
         $array = array();
         while($row = $results->fetch_assoc()){
             array_push($array,$row);
         }
-
         return $array;
 
     }
@@ -562,7 +560,6 @@ class User{
                   rating = '$rating'
                 WHERE
                   review_id = '$review_id'";
-        print($sql);
         $result = $db->query($sql);
         if($result){
             header("Location: ".$config['Base_URL']."/Thuisbezorgd/Account/index.php");
