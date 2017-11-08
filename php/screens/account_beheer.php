@@ -21,7 +21,7 @@
                                 <p>Achternaam: <span><?=$user->getLastname();?></span></p>
                             </td>
                             <td>
-                                <p>Wachtwoord: <a href="javascript:void(0)">wijzigen</a></p>
+                                <p>Wachtwoord: <a href="#wachtwoord">wijzigen</a></p>
                             </td>
                         </tr>
                     </table>
@@ -61,6 +61,38 @@
                         }
                         ?>
                     </div>
+                </div>
+                <div class="block" id="wachtwoord">
+                    <h3>Wachtwoord wijzigen</h3>
+                    <form method="post" action="<?= $config['Base_URL']; ?>/php/form_handler.php">
+                        <table class="fancy_labels small">
+                            <tr>
+                                <td>
+                                    <label>Oud wachtwoord:</label>
+                                    <input type="password" name="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nieuw wachtwoord:</label>
+                                    <input type="password" name="new_password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nieuw wachtwoord opnieuw:</label>
+                                    <input type="password" name="new_password_again">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="type" value="newPass">
+                                    <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
+                                    <input type="submit" name="submit" value="Opslaan">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
