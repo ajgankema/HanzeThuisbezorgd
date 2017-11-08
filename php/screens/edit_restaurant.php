@@ -14,10 +14,12 @@
         if($restaurant->saveRestaurant())
         {
             //gelukt
+            echo"<script>alert('Gelukt');</script>";
         }
         else
         {
             //niet gelukt
+            echo"<script>alert('Er is iets misgegaan. Neem contact op met de service provider.');</script>";
         }
     }
 ?>
