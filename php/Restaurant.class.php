@@ -16,6 +16,10 @@ class Restaurant{
     public function __construct(){
 
         global $db;
+        if(empty($db)){
+            include_once("db.php");
+            $db = (new Db())->getConnection();
+        }
 
         $sql = "SELECT r.restaurant_id, r.name, r.description, r.postalcode, r.streetaddress, r.city, r.restaurant_type, u.firstname as manager_firstname, u.lastname as manager_lastname, u.email as manager_email
                 FROM restaurant as r
@@ -168,4 +172,81 @@ class Restaurant{
 
         return false;
     }
+
+    /**
+     * Places a order for the restaurant
+     */
+    public function placeOrder($user_id, $streetname, $housenumber, $postalcode, $city, $payment, $shoppingcart_array){
+
+        //Setup the variables
+        $error = array();
+        $datetime = date("Y-m-d H:i:s");
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $user_id = $db->real_escape_string($user_id);
+        $streetname = $db->real_escape_string($streetname);
+        $housenumber = $db->real_escape_string($housenumber);
+        $postalcode = $db->real_escape_string($postalcode);
+        $city = $db->real_escape_string($city);
+        $payment = $db->real_escape_string($payment);
+        $restaurant_id = $db->real_escape_string($this->getRestaurantId());
+
+        //Have the fields been entered correctly?
+        if(strlen($streetname)<3)$error[2]=true;    //Not long enough
+        if(strlen($housenumber)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($postalcode)<6)$error[4]=true;    //Dutch postal code is always 6 long
+        if(strlen($city)<3)$error[5]=true;          //Not long enough
+
+        //Als er een error aanwezig is, dan word die nu gereturned
+        if(!empty($error))return $error;
+
+        //Save it to the database
+        $sql = "INSERT INTO orders
+                  (restaurant_id, user_id, streetname, housenumber, postalcode, city, date_created)
+                VALUES
+                  ('$restaurant_id','$user_id','$streetname','$housenumber','$postalcode','$city','$datetime')";
+        $result = $db->query($sql);
+
+        //Get the order_id
+        $sql = "SELECT order_id
+                FROM orders
+                ORDER BY order_id DESC
+                LIMIT 1";
+        $result = $db->query($sql);
+        $order_id = $result->fetch_assoc()['order_id'];
+
+        //Put the shoppingcart array in a reasonable array
+        $orders_id = array();
+        $orders_price = array();
+        $order = "";
+        foreach($shoppingcart_array as $key=>$value){
+            $prod_id = $value['product_id'];
+            $price = $value['price'];
+            for($x=0;$x<$value['max_amount'];$x++){
+                if(strlen($order)>0)$order.=",";
+                $order.="(";
+                $order.=$order_id.",".$prod_id.",".$price;
+                array_push($orders_id,$prod_id);
+                array_push($orders_price,$price);
+                $order.=")";
+            }
+        }
+
+        //Save it to the database
+        $sql = "INSERT INTO order_contents
+                  (order_id, product_id, price)
+                VALUES
+                  $order";
+        $result = $db->query($sql);
+
+        return true;
+
+    }
+
 }

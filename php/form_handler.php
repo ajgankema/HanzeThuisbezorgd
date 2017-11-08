@@ -43,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case "newPass":
             newPass();
             break;
+        case "placeOrder":
+            placeOrder();
+            break;
         default:
             return false;
     }
@@ -240,4 +243,37 @@ function editReview(){
     } elseif($inputDeleteCheck=="false") {
         $user->updateReview($title,$description,$rating,$review_ID);
     }
+}
+
+function placeOrder(){
+
+    session_start();
+
+    include_once("User.class.php");
+    include_once("Restaurant.class.php");
+
+    $streetname = $_POST['streetname'];
+    $housenumber = $_POST['housenumber'];
+    $postalcode = $_POST['postalcode'];
+    $city = $_POST['city'];
+    $payment = $_POST['payment'];
+    $return_URL = explode("?",$_POST['return_url'])[0];
+    $shoppingcart_array = $_SESSION['Winkelwagen'];
+
+    $user = new User();
+    $restaurant = new Restaurant();
+    $response = $restaurant->placeOrder($user->getUserId(), $streetname, $housenumber, $postalcode, $city, $payment, $shoppingcart_array);
+
+    if($response==1){
+        //Bestelling is geplaatst
+        //Winkelwagen legen
+        unset($_SESSION['Winkelwagen']);
+    } elseif($response==2) {
+        //Niet gelukt?
+        $return_URL.="?what";
+    }
+
+    header("Location: $return_URL");
+    exit();
+
 }

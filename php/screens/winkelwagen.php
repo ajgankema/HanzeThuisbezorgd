@@ -26,6 +26,7 @@ include("header.php");
 
 <?php // Maak de Menukaart en toon alle gerechten uit de database tabel:products ?>
 <div id="container" class="inset_from_header">
+    <div class="arena">
 <!--  <h3 align="center">MENU</h3>           -->
 <!--  <table class="table table-hover">-->
 <!--    <thead>-->
@@ -110,7 +111,6 @@ if(isset($_SESSION["Winkelwagen"])){
 ?>
 
     <button onclick="location.href='<?=$config['Base_URL'];?>/bestellen';" class="fancy">Bestellen</button>
+    <button onclick="location.href='<?=$_SESSION['previous_page'];?>'" class="fancy">Terug</button>
 </div>
-
-</BODY>
-</HTML>
+</div>
