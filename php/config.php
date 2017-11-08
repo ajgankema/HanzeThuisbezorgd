@@ -5,7 +5,7 @@
  * Date: 3-11-2017
  * Time: 14:22
  */
-
+error_reporting(E_ALL & ~E_NOTICE);
 $config = array(
 
     "DB_HOST"   =>  "localhost",
