@@ -186,7 +186,7 @@ if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErr
                         </tr>
                         <tr>
                             <td>
-                                <input type="hidden" value="review_id" name="review_id" id="review_id">
+                                <input type="hidden" id="review_id_IN" type="text" name="review_id">
                                 <input type="hidden" value="<?=$_SERVER['REQUEST_URI'];?>" name="return_url">
                                 <input type="hidden" name="type" value="reviewAddress" id="inputType">
                             </td>

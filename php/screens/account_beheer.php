@@ -51,7 +51,7 @@
                             ?>
                             <div class="Reviews">
                                 <p class="title"><span class="bold"><?=$ad['title'];?> <?=$ad['description'];?></span> Rating <?=$ad['rating'];?> Bij <?=$ad['name'];?></p>
-                                <button onclick="openEditReview('<?=$ad['title'];?>','<?=$ad['description'];?>','<?=$ad['rating'];?>')" title="Review wijzigen" class="fancy">wijzig</a>
+                                <button onclick="openEditReview('<?=$ad['title'];?>','<?=$ad['description'];?>','<?=$ad['rating'];?>','<?=$ad['review_id'];?>')" title="Review wijzigen" class="fancy">wijzig</a>
                                 <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="review_form">
                                     <input type="hidden" name="deletecheck" value="false" id="inputDeleteCheck">
                                     <button type="button" class="fancy" onclick="deleteReview(true)">Review Verwijderen</button>

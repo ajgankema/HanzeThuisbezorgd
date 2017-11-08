@@ -438,7 +438,7 @@ class User{
         return $array;
 
     }
-        public function removeReview($restaurant_id){
+        public function removeReview($review_id){
 
         //Include important files
         include_once("db.php");
@@ -450,18 +450,14 @@ class User{
         $user_id = $db->real_escape_string($this->getUserId());
 
         //Get the Reviews
-        $sql = "DELETE review_id, restaurant_id, user_id, title, description, rating
-                FROM reviews
-                WHERE $restaurant_id = '$restaurant_id'";
-        $results = $db->query($sql);
-        print("delete voltooid");
-        //Making a cleaner array
-        $array = array();
-        while($row = $results->fetch_assoc()){
-            array_push($array,$row);
+        $sql = "DELETE FROM reviews
+                WHERE review_id = '$review_id'";
+        $result = $db->query($sql);
+        if($result){
+            header("Location: ".$config['Base_URL']."/Thuisbezorgd/Account/index.php");
+            return true;
         }
-
-        return $array;
+        return false;
 
     }
 

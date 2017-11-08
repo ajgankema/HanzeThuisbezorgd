@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    print_r($_POST);
+    //print_r($_POST); //Post debugger
     //What kind of form are we dealing with?
     switch($_POST['type']){
         case "register":
@@ -195,6 +195,7 @@ function editAddress(){
 }
 function editReview(){
     include_once("User.class.php");
+    include("../php/config.php");
     //Setup all the variables
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -206,9 +207,8 @@ function editReview(){
     $user = new User();
 
     if($inputDeleteCheck=="true"){
-        /*
-        verwijder
-*/
+        $user->removeReview($review_ID);
+
     } else {
         //doe wat als er geen delete is
     }
