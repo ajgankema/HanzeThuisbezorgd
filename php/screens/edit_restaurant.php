@@ -79,6 +79,7 @@
                             <td>Straat en huisnummer</td>
                             <td>Postcode</td>
                             <td>Plaatsnaam</td>
+                            <td>Datum</td>
                             <td>Bestelling</td>
                         </tr>
                     </thead>
@@ -91,6 +92,7 @@
                             <td><?=$o['streetname'];?>, <?=$o['housenumber'];?></td>
                             <td><?=$o['postalcode'];?></td>
                             <td><?=$o['city'];?></td>
+                            <td><?=$o['date_created'];?></td>
                             <td>
                                 <ol>
                                     <?php

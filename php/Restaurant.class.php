@@ -265,7 +265,8 @@ class Restaurant{
                 FROM orders as o
                 INNER JOIN users as u
                 ON o.user_id = u.user_id
-                WHERE o.restaurant_id = '$restaurant_id'";
+                WHERE o.restaurant_id = '$restaurant_id'
+                ORDER BY date_created DESC";
         $results = $db->query($sql);
 
         //Making a cleaner array
