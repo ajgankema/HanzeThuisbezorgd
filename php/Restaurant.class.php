@@ -290,7 +290,7 @@ class Restaurant{
         $restaurant_id = $db->real_escape_string($this->getRestaurantId());
         $order_id = $db->real_escape_string($order_id);
 
-        //Get the addresses
+        //Get the order contents
         $sql = "SELECT DISTINCT p.name, oc.price, (SELECT COUNT(product_id) FROM order_contents WHERE order_id=oc.order_id AND product_id=oc.product_id) as aantal
                 FROM order_contents as oc
                 INNER JOIN products as p
