@@ -5,6 +5,27 @@
  * Date: 3-11-2017
  * Time: 14:59
  */
+$reviewErrorMsg = null;
+if(!empty($_GET['verstuurReview'])){
+    switch($_GET['verstuurReview']){
+        case "unknownerror":
+            $popupOpened=3;
+            $reviewErrorMsg = "Er is iets mis gegaan!";
+            break;
+        case "incorrectinput":
+            $popupOpened=3;
+            foreach($_SESSION['verstuurReview_errors'] as $key=>$error){
+                if($key==1)$reviewErrorMsg.="Titel is leeg.";
+                if($key==2)$reviewErrorMsg.="Review is leeg.";
+                if($key==3)$reviewErrorMsg.="Geen rating gegeven.";
+                if($key==4)$reviewErrorMsg.="rating mag alleen tussen de 1-10";
+                $reviewErrorMsg.="<br/>";
+            }
+            break;
+        default:
+            break;
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if(isset($_GET['logout'])){
@@ -21,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //print_r($_POST); //Post debugger
+    print_r($_POST); //Post debugger
     //What kind of form are we dealing with?
     switch($_POST['type']){
         case "register":
@@ -259,8 +280,21 @@ function verstuurReview(){
     $return_URL = explode("?",$_POST['return_url'])[0];
     $user = new User();
     
-    $user->addUserReview($title,$description,$rating);
+    $response = $user->addUserReview($title,$description,$rating);
+    print_r($response);
+    print($reviewErrorMsg);
 
+    if($response[0]==0){
+        //Data is opgeslagen
+        if(empty($_SESSION))session_start();
+        unset($_SESSION['verstuurReview_errors']);
+        $return_URL.="?verstuurReview=reactieverstuurd";
+    } elseif(is_array($response)){
+        if(empty($_SESSION))session_start();
+        $return_URL.="?verstuurReview=incorrectinput";
+        $_SESSION['verstuurReview_errors']=$response;
+    }
+    header("Location: $return_URL");
 }
 
 function placeOrder(){

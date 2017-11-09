@@ -32,7 +32,28 @@ if(!$user->isLoggedIn()){
     header("Location: ".$config['Base_URL']."/winkelwagen?login=open");
     exit();
 }
+//error
+if(!empty($_GET['verstuurReview'])){
+    switch($_GET['verstuurReview']){
+        case "unknownerror":
+            $reviewErrorMsg = "Er is iets mis gegaan!";
+            break;
+        case "incorrectinput":
+            print_r($_SESSION["verstuurReview_errors"]);
+            foreach($_SESSION['verstuurReview_errors'] as $key[0]=>$error){
+                if($key==2)$reviewErrorMsg.="Titel is leeg.";
+                if($key==3)$reviewErrorMsg.="Review is leeg.";
+                if($key==4)$reviewErrorMsg.="Geen rating gegeven.";
+                if($key==5)$reviewErrorMsg.="rating mag alleen tussen de 1-10";
+                $reviewErrorMsg.="<br/>";
+            }
+            break;
+        default:
+            break;
+    }
+}
 
+if(!empty($reviewErrorMsg))$reviewErrorMsg="error".$reviewErrorMsg;
 /**
  * HERE STARTS THE ACTUAL PAGE
  */
@@ -47,6 +68,7 @@ include("../../php/screens/header.php");
         <p>Bedankt voor uw bestelling! Deze zal zo spoedig mogelijk worden bezorgd naar uw bestemming.</p>
         <p>..Als het systeem daadwerkelijk een bestelling naar een daarwerkelijk restaurant stuurde.</p>
         <p>Wij waarderen het als u een review achterlaat op onze website</p>
+        <?=$reviewErrorMsg;?>
         <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="review_form">
                     <table class="fancy_labels">
                         <tr>

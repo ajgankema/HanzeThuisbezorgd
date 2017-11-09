@@ -455,9 +455,10 @@ class User{
         $user_id = $db->real_escape_string($this->getUserId());
 
         //Have the fields been entered correctly?
-        if(strlen($title)<3)$error[0]=true;    //Not long enough
-        if(strlen($description)<1)$error[1]=true;   //Nothing filled in
-        if(strlen($rating)>1)$error[2]=true; // niet 
+        print($title);
+        if(strlen($title)<3)$error[2]=true;    //Not long enough
+        if(strlen($description)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($rating)>=1)$error[4]=true; // niet 
 
         //Als er een error aanwezig is, dan word die nu gereturned
         if(!empty($error))return $error;
@@ -473,7 +474,7 @@ class User{
 
         //Has it been uploaded?
         if($result){
-            header("Location: ".$config['Base_URL']."/Thuisbezorgd/");
+            //header("Location: ".$config['Base_URL']."/Thuisbezorgd/");
             return true;
         }
         return false;

@@ -63,6 +63,7 @@ if(!empty($_GET['editReview'])){
             break;
     }
 }
+
 if(!empty($_GET['removeAddress'])){
 
     switch($_GET['removeAddress']){
@@ -95,6 +96,8 @@ if(!empty($addressErrorMsg))$addressErrorMsg= "<p class='errormsg'>".$addressErr
                 <h2 class="editAddress">Adres aanpassen</h2>
             </div>
             <?=$addressErrorMsg;?>
+
+
             <div class="content">
                 <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="address_form">
                     <table class="fancy_labels">
