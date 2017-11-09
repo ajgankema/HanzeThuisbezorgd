@@ -434,9 +434,16 @@ class User{
 
         //Making ready a variable
         $error = array();
+        $currentdate = date("Y/m/d/h/i/s");
+        print($currentdate);
 
         //Include important files
         include_once("db.php");
+        include_once("Restaurant.class.php");
+
+        //Restaurant variable aanmaken
+        $restaurant = new Restaurant();
+        $restaurant_id = $restaurant->getRestaurantId();
 
         //Connect to the database
         $db = (new Db())->getConnection();
@@ -444,30 +451,23 @@ class User{
         //Escape strings
         $title = $db->real_escape_string($title);
         $description = $db->real_escape_string($description);
-        $rating = $db->real_escape_string($$rating);
+        $rating = $db->real_escape_string($rating);
+        $restaurant_id = $db->real_escape_string($restaurant_id);
         $user_id = $db->real_escape_string($this->getUserId());
-
-        //Will the address be standard?
-        if(!empty($standard)){
-            $standard=1;    //The address will be a standard address
-        } else {
-            $standard=0;    //The address wont be a standard address
-        }
 
         //Have the fields been entered correctly?
         if(strlen($title)<3)$error[2]=true;    //Not long enough
         if(strlen($description)<1)$error[3]=true;   //Nothing filled in
+        if(strlen($rating)>1)$error[3]=true; // niet 
 
         //Als er een error aanwezig is, dan word die nu gereturned
         if(!empty($error))return $error;
-
         //Save it to the database
         $sql = "INSERT INTO Reviews
-                  (title, description, rating)
+                  (title, description, rating, user_id, restaurant_id, date_created)
                 VALUES
-                  ('$title','$description','$rating')
-                WHERE user_id = '$user_id'";
-
+                  ('$title','$description','$rating','$user_id','$restaurant_id','$currentdate')";
+        print($sql);
         $result = $db->query($sql);
 
         //Close the database
@@ -475,10 +475,10 @@ class User{
 
         //Has it been uploaded?
         if($result){
+            header("Location: ".$config['Base_URL']."/Thuisbezorgd/");
             return true;
         }
         return false;
-
     }
 
     public function getAllUserReviews(){
@@ -546,8 +546,6 @@ class User{
 
         //Have the fields been entered correctly?
         if(strlen($title)<3)$error[2]=true;    //Not long enough
-        //if(strlen($description)<1)$error[3]=true;   //Nothing filled in
-        if(strlen($rating)<1)$error[4]=true;    //Dutch postal code is always 6 long
 
         //Als er een error aanwezig is, dan word die nu gereturned
         if(!empty($error))return $error;

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //print_r($_POST); //Post debugger
+    print_r($_POST); //Post debugger
     //What kind of form are we dealing with?
     switch($_POST['type']){
         case "register":
@@ -39,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case "editReview":
             editReview();
+            break;
+        case "verstuurReview":
+            verstuurReview();
             break;
         case "newPass":
             newPass();
@@ -243,6 +246,23 @@ function editReview(){
     } elseif($inputDeleteCheck=="false") {
         $user->updateReview($title,$description,$rating,$review_ID);
     }
+}
+
+function verstuurReview(){
+    include_once("User.class.php");
+    include("../php/config.php");
+    //Setup all the variables
+    $title = $_POST['title'];
+    $description = $_POST['description_IN'];
+    $rating = $_POST['rating'];
+    $inputDeleteCheck = $_POST['deletecheck'];
+    $review_ID = $_POST['review_id'];
+    $return_URL = explode("?",$_POST['return_url'])[0];
+
+    $user = new User();
+    
+    $user->addUserReview($title,$description,$rating);
+
 }
 
 function placeOrder(){
