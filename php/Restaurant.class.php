@@ -249,4 +249,63 @@ class Restaurant{
 
     }
 
+    public function getOrders(){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $restaurant_id = $db->real_escape_string($this->getRestaurantId());
+
+        //Get the addresses
+        $sql = "SELECT u.firstname, u.lastname, u.email, o.order_id, o.streetname, o.housenumber, o.postalcode, o.city, o.date_created
+                FROM orders as o
+                INNER JOIN users as u
+                ON o.user_id = u.user_id
+                WHERE o.restaurant_id = '$restaurant_id'";
+        $results = $db->query($sql);
+
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+
+        return $array;
+
+    }
+
+    public function getOrderDetails($order_id){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Escape strings
+        $restaurant_id = $db->real_escape_string($this->getRestaurantId());
+        $order_id = $db->real_escape_string($order_id);
+
+        //Get the addresses
+        $sql = "SELECT DISTINCT p.name, oc.price, (SELECT COUNT(product_id) FROM order_contents WHERE order_id=oc.order_id AND product_id=oc.product_id) as aantal
+                FROM order_contents as oc
+                INNER JOIN products as p
+                ON p.product_id = oc.product_id
+                WHERE order_id = '$order_id'";
+        $results = $db->query($sql);
+
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+
+        return $array;
+
+    }
+
 }

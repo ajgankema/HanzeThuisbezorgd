@@ -24,9 +24,11 @@
     }
 ?>
 
+
+
 <div id="container" class="inset_from_header">
-    <div id="account">
-        <h1>Hallo, <?=$user->getFirstname();?> <?=$user->getLastname();?>!</h1>
+    <div class="arena">
+        <h1 class="arena_title">Hallo, <?=$user->getFirstname();?> <?=$user->getLastname();?>!</h1>
         <div class="block-grid">
             <div class="block">
                 <h3>Wijzig restaurant informatie</h3>
@@ -66,6 +68,46 @@
                         </tr>
                     </table>
                 </form>
+            </div>
+            <div class="block">
+                <h3>Bestellingen</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Naam</td>
+                            <td>Email</td>
+                            <td>Straat en huisnummer</td>
+                            <td>Postcode</td>
+                            <td>Plaatsnaam</td>
+                            <td>Bestelling</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($restaurant->getOrders() as $o):?>
+
+                        <tr>
+                            <td><?=$o['firstname'];?> <?=$o['lastname'];?></td>
+                            <td><?=$o['email'];?></td>
+                            <td><?=$o['streetname'];?>, <?=$o['housenumber'];?></td>
+                            <td><?=$o['postalcode'];?></td>
+                            <td><?=$o['city'];?></td>
+                            <td>
+                                <ol>
+                                    <?php
+                                    $price=0;
+                                    foreach($restaurant->getOrderDetails($o['order_id']) as $oc):
+                                    $price+=$oc['price'];
+                                        ?>
+                                        <li><?=$oc['name'];?> - x<?=$oc['aantal'];?></li>
+                                    <?php endforeach; ?>
+                                </ol>
+                                <span class="price">Totaal: &euro;<?=$price;?></span>
+                            </td>
+                        </tr>
+
+                    <?php endforeach;?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -29,9 +29,9 @@
                         {
                             ?>
                                 <li>
-                                    <a href="<?=$config['Base_URL'];?>/Restaurantbeheer" title="Wijzig restaurant" class="button">
+                                    <a href="<?=$config['Base_URL'];?>/Restaurantbeheer" title="Restaurant beheren" class="button">
                                         <i class="fa fa-cutlery" aria-hidden="true"></i>
-                                        Restaurant wijzigen
+                                        Restaurant beheren
                                     </a>
                                 </li>
                     <?php
