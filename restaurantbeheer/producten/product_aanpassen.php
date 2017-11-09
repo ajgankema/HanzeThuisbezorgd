@@ -38,7 +38,7 @@ if(!$user->isLoggedIn() || !$user->isRestaurantManager()){
 include("../../php/screens/header.php");?>
 
 <div id="container" class="inset_from_header">
-
+<!--    <div class="arena">-->
     <?php include("../../php/Product_aanpassen.php");?>
-
+<!--    </div>-->
 </div>

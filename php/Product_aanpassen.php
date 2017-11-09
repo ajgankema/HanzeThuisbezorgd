@@ -11,7 +11,7 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 } else {
-	echo("connection established");
+//	echo("connection established");
 }
 // Data ophalen
 $sql = "SELECT product_id, category_id, name, description, price, max_amount FROM products";

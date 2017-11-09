@@ -11,23 +11,23 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 } else {
-	echo"connection established";
+//	echo"connection established";
 }
 session_start();
 $product_id = $_SESSION["product_id_aanpassen"];
-echo "$product_id";
+//echo "$product_id";
 $sql = "SELECT * FROM categories";
 $categorien = mysqli_query($conn, $sql);
 $sql = "SELECT category_id FROM products WHERE product_id= '$product_id'";
 $array1 = mysqli_query($conn, $sql);
 $array2 = mysqli_fetch_row($array1);
 $categorie_old = $array2[0];
-echo "$categorie_old";
+//echo "$categorie_old";
 $sql = "SELECT name FROM categories WHERE category_id= '$categorie_old'";
 $array1 = mysqli_query($conn, $sql);
 $array2 = mysqli_fetch_row($array1);
 $categorie_old = $array2[0];
-echo "$categorie_old";
+//echo "$categorie_old";
 $sql = "SELECT name FROM products WHERE product_id= '$product_id'";
 $array1 = mysqli_query($conn, $sql);
 $array2 = mysqli_fetch_row($array1);
