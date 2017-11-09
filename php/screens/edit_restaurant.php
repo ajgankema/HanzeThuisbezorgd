@@ -109,6 +109,12 @@
                     </tbody>
                 </table>
             </div>
+            <div class="block">
+                <h3>Producten beheren</h3>
+                <button class="fancy" onclick="location.href='producten/nieuw_product.php';">Nieuw product</button>
+                <button class="fancy" onclick="location.href='producten/product_aanpassen.php';">Producten weergeven</button>
+                <button class="fancy" onclick="location.href='producten/nieuw_categorie.php';">Nieuwe categorie</button>
+            </div>
         </div>
     </div>
 </div>
