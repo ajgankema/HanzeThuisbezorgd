@@ -50,7 +50,7 @@
                         foreach($user->getAllUserReviews() as $ad){
                             ?>
                             <div class="Reviews">
-                                <p class="title"><span class="bold"><?=$ad['title'];?> <?=$ad['description'];?></span> Rating <?=$ad['rating'];?> Bij <?=$ad['name'];?></p>
+                                <p class="title"><span class="bold">Titel: <?=$ad['title'];?><br>Review: <?=$ad['description'];?></span><br>Rating: <?=$ad['rating'];?><br> Bij <?=$ad['name'];?></p>
                                 <button onclick="openEditReview('<?=$ad['title'];?>','<?=$ad['description'];?>','<?=$ad['rating'];?>','<?=$ad['review_id'];?>')" title="Review wijzigen" class="fancy"/>Wijzigen</a>
                                 <form action="<?= $config['Base_URL']; ?>/php/form_handler.php" method="post" id="review_form">
                                     <input type="hidden" name="deletecheck" value="false" id="inputDeleteCheck">

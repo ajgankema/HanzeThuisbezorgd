@@ -367,5 +367,8 @@ span.text-label{
     margin-left: 6px;
 }
 .block .review_tablemenu {
+    width:30%;
+}
+.block-grid .block{
     width:40%;
 }
