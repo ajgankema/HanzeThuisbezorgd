@@ -26,6 +26,14 @@ $restaurant = new Restaurant();
 //Check for $_GET requests
 include("php/form_handler.php");
 
+//Go to menu if posttype = postalcode
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($_POST['type']=="postalcode"){
+        header("Location: ".$config['Base_URL']."/menu");
+        exit();
+    }
+}
+
 //Include screen files
 include("php/screens/head.php");
 if(!$user->isLoggedIn())include("php/screens/login.php");
