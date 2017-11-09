@@ -435,7 +435,6 @@ class User{
         //Making ready a variable
         $error = array();
         $currentdate = date("Y/m/d/h/i/s");
-        print($currentdate);
 
         //Include important files
         include_once("db.php");
@@ -456,9 +455,9 @@ class User{
         $user_id = $db->real_escape_string($this->getUserId());
 
         //Have the fields been entered correctly?
-        if(strlen($title)<3)$error[2]=true;    //Not long enough
-        if(strlen($description)<1)$error[3]=true;   //Nothing filled in
-        if(strlen($rating)>1)$error[3]=true; // niet 
+        if(strlen($title)<3)$error[0]=true;    //Not long enough
+        if(strlen($description)<1)$error[1]=true;   //Nothing filled in
+        if(strlen($rating)>1)$error[2]=true; // niet 
 
         //Als er een error aanwezig is, dan word die nu gereturned
         if(!empty($error))return $error;
@@ -467,7 +466,6 @@ class User{
                   (title, description, rating, user_id, restaurant_id, date_created)
                 VALUES
                   ('$title','$description','$rating','$user_id','$restaurant_id','$currentdate')";
-        print($sql);
         $result = $db->query($sql);
 
         //Close the database
@@ -497,6 +495,28 @@ class User{
                 FROM reviews 
                 INNER JOIN restaurant ON restaurant.restaurant_id = reviews.restaurant_id
                 WHERE user_id = '$user_id'";
+        $results = $db->query($sql);
+        //Making a cleaner array
+        $array = array();
+        while($row = $results->fetch_assoc()){
+            array_push($array,$row);
+        }
+        return $array;
+
+    }
+    public function getAllUserReviewsMenukaart(){
+
+        //Include important files
+        include_once("db.php");
+
+        //Connect to the database
+        $db = (new Db())->getConnection();
+
+        //Get the Reviews
+        $sql = "SELECT review_id, reviews.restaurant_id, reviews.user_id, title, reviews.description, rating, restaurant.name, firstname, lastname 
+                FROM reviews 
+                INNER JOIN restaurant ON restaurant.restaurant_id = reviews.restaurant_id
+                INNER JOIN users ON users.user_id = reviews.user_id";
         $results = $db->query($sql);
         //Making a cleaner array
         $array = array();

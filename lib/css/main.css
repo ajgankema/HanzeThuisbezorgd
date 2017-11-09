@@ -128,7 +128,6 @@ header .nav a.button.no_text {
     font-size: 18pt;
     font-weight: normal;
 }
-
 /**
  *
  *  HOME PAGE
@@ -366,4 +365,7 @@ span.text-label{
     color: #ff7777;
     font-size: 20pt;
     margin-left: 6px;
+}
+.block .review_tablemenu {
+    width:40%;
 }

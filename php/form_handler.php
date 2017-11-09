@@ -5,7 +5,6 @@
  * Date: 3-11-2017
  * Time: 14:59
  */
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if(isset($_GET['logout'])){
@@ -22,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    print_r($_POST); //Post debugger
+    //print_r($_POST); //Post debugger
     //What kind of form are we dealing with?
     switch($_POST['type']){
         case "register":
@@ -258,7 +257,6 @@ function verstuurReview(){
     $inputDeleteCheck = $_POST['deletecheck'];
     $review_ID = $_POST['review_id'];
     $return_URL = explode("?",$_POST['return_url'])[0];
-
     $user = new User();
     
     $user->addUserReview($title,$description,$rating);

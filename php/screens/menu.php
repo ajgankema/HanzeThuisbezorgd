@@ -44,10 +44,11 @@ $results = $db->query($sql);
         <?php if(!empty($_SESSION['Winkelwagen'])){?>
         <button onclick="location.href='<?=$config['Base_URL'];?>/winkelwagen';" class="fancy">Winkelwagen</button>
         <?php }?>
-
+            <div id="container">
+                    <?php include ("reviews.php");?>
+            </div>
     </div>
 </div>
-
 
 <?php include ("footer.php");?>
 </body>
