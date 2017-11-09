@@ -33,7 +33,7 @@
             <div class="block">
                 <h3>Wijzig restaurant informatie</h3>
                 <form method='post' action="">
-                    <table>
+                    <table id="edit_restaurant_table">
                         <tr>
                             <td>
                                 <p><span class="text-label">Naam:</span> <span><input type="text" name="name" value="<?=$restaurant->getName();?>"></span></p>
@@ -44,7 +44,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p><span class="text-label">Omschrijving:</span> <span><textarea style="resize:none;" rows="7" cols="50"  name="description"><?=$restaurant->getDescription();?></textarea></span></p>
+                                <p><span class="text-label">Omschrijving:</span> <span><textarea style="resize:none;" rows="7"  name="description"><?=$restaurant->getDescription();?></textarea></span></p>
                             </td>
                             <td>
                                 <p><span class="text-label">Adres:</span> <span><input type="text" name="address" value="<?=$restaurant->getStreetaddress();?>"></span></p>
